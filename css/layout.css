@@ -7,3 +7,6 @@ footer{
     color: white;
     text-align: center;
  }
+ section:first-child{
+     display: none;
+ }
