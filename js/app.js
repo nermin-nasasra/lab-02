@@ -1,6 +1,7 @@
 'use strict'
 $(document).ready(function() {
     let animalsObj = [];
+    let keywordall=[];
     function Img(img) {
       this.image_url = img.image_url;
       this.title = img.title;
@@ -40,14 +41,27 @@ $(document).ready(function() {
       $imgClone.find("h2").text(this.title);
       $imgClone.find("p").text(this.description);
       $imgClone.find("#p").text(this.horns);
+      // $imgClone.removeAtter("id");
+      // $imgClone.attr("class",this.keyword);
       $("main").append($imgClone);
     };
+
+    Img.prototype.selected = function(){
+     let selected=$('.imgs');
+    if(!(keywordall.includes(this.keyword))){
+    keywordall.push(this.keyword);
+    selected.append(`<option>${this.keyword}</option>`);
+}
+    };
+
     let readJson = () => {
       $.ajax("data/page-1.json", { method: "GET", dataType: "JSON" }).then(data => {
         data.forEach( imgItem => {
             console.log('hello')
           let img = new Img(imgItem);
+          img.selected();
           img.render();
+         
           animalsObj.push(img);
         });
         console.log(animalsObj);
